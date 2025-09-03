@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AdminController;
+use App\Http\Controllers\Api\ReportController;
 use App\Http\Controllers\Api\TeacherController;
 
 // Public route for login
@@ -26,4 +27,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/admin/register-teacher', [AdminController::class, 'registerTeacher']);
         Route::post('/admin/register-student', [AdminController::class, 'registerStudent']);
     });
+
+    Route::get('/reports/student/{studentId}', [ReportController::class, 'getStudentReport']);
 });

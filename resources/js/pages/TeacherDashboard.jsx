@@ -105,27 +105,24 @@ export default function TeacherDashboard() {
             {students.length > 0 && (
                 <form onSubmit={handleSubmit}>
                     <table style={{ marginTop: '20px', borderCollapse: 'collapse', width: '500px' }}>
-                        <thead>
-                            <tr>
-                                <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'left' }}>Student Name</th>
-                                <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center' }}>Status</th>
+                <thead>
+                    <tr>
+                        <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'left' }}>Student Name</th>
+                        <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center' }}>Status</th>
+                        <th style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center' }}>Actions</th> {/* <-- ADD THIS HEADER */}
+                    </tr>
+                </thead>
+                    <tbody>
+                        {students.map(student => (
+                            <tr key={student.id}>
+                                <td style={{ border: '1px solid #ccc', padding: '8px' }}>{student.name}</td>
+                                {/* ... status cell is here ... */}
+                                <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center' }}> {/* <-- ADD THIS CELL */}
+                                    <a href={`/reports/student/${student.id}`} target="_blank" rel="noopener noreferrer">View Report</a>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            {students.map(student => (
-                                <tr key={student.id}>
-                                    <td style={{ border: '1px solid #ccc', padding: '8px' }}>{student.name}</td>
-                                    <td style={{ border: '1px solid #ccc', padding: '8px', textAlign: 'center' }}>
-                                        <label style={{ marginRight: '10px' }}>
-                                            <input type="radio" name={`student_${student.id}`} onChange={() => handleAttendanceChange(student.id, 'Present')} required/> Present
-                                        </label>
-                                        <label>
-                                            <input type="radio" name={`student_${student.id}`} onChange={() => handleAttendanceChange(student.id, 'Absent')} /> Absent
-                                        </label>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
+                        ))}
+                    </tbody>
                     </table>
                     <button type="submit" style={{ marginTop: '10px', padding: '10px 15px' }}>Submit Attendance</button>
                 </form>

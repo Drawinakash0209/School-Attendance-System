@@ -7,8 +7,8 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 // Import Pages
 import AdminDashboard from './pages/AdminDashboard';
 import LoginPage from './pages/LoginPage';
+import StudentReportPage from './pages/StudentReportPage';
 import TeacherDashboard from './pages/TeacherDashboard';
-
 function App() {
     return (
         <AuthProvider>
@@ -41,6 +41,7 @@ const AppRoutes = () => {
             <Route path="/login" element={user ? <Navigate to="/dashboard" /> : <LoginPage />} />
             <Route path="/dashboard" element={<DashboardRedirect />} />
             <Route path="*" element={<Navigate to={user ? "/dashboard" : "/login"} />} />
+            <Route path="/reports/student/:studentId" element={<StudentReportPage />} />
         </Routes>
     );
 };
