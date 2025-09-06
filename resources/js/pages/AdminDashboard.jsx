@@ -73,6 +73,7 @@ export default function AdminDashboard() {
                 <button onClick={logout}>Logout</button>
             </div>
             <p>Welcome, {user?.name}!</p>
+            <a href="/reports/class">View Class Reports</a> 
             <hr />
 
             <div style={{ display: 'flex', gap: '50px' }}>

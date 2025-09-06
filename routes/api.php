@@ -29,4 +29,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get('/reports/student/{studentId}', [ReportController::class, 'getStudentReport']);
+
+        // --- Report Routes ---
+    Route::get('/reports/student/{studentId}', [ReportController::class, 'getStudentReport']);
+    Route::get('/reports/class', [ReportController::class, 'getClassReport']);
 });
