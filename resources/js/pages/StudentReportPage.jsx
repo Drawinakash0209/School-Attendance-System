@@ -5,13 +5,29 @@ import { useParams } from 'react-router-dom';
 import apiClient from '../services/api';
 
 export default function StudentReportPage() {
-    const { studentId } = useParams(); // Gets the studentId from the URL
+    const { studentId } = useParams();
     const [reportData, setReportData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    
+    // --- NEW: State for date pickers ---
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
 
+    // --- UPDATED: useEffect hook to handle date filtering ---
     useEffect(() => {
-        apiClient.get(`/reports/student/${studentId}`)
+        setLoading(true);
+        setError('');
+        
+        // Prepare query parameters to send to the API
+        const params = {};
+        if (startDate && endDate) {
+            params.start_date = startDate;
+            params.end_date = endDate;
+        }
+
+        // The API call now includes the date params if they exist
+        apiClient.get(`/reports/student/${studentId}`, { params })
             .then(response => {
                 setReportData(response.data);
             })
@@ -20,7 +36,7 @@ export default function StudentReportPage() {
                 setError('Failed to load report data.');
             })
             .finally(() => setLoading(false));
-    }, [studentId]);
+    }, [studentId, startDate, endDate]); // The effect re-runs whenever the studentId or dates change
 
     if (loading) return <p>Loading report...</p>;
     if (error) return <p style={{ color: 'red' }}>{error}</p>;
@@ -33,8 +49,21 @@ export default function StudentReportPage() {
             <h1>Attendance Report for {student.name}</h1>
             <p><strong>Class:</strong> {student.school_class.name}</p>
 
+            {/* --- NEW: Date filter UI --- */}
+            <div style={{ margin: '20px 0', padding: '15px', border: '1px solid #eee', display: 'flex', gap: '20px', alignItems: 'center' }}>
+                <strong>Filter by Date Range:</strong>
+                <div>
+                    <label>Start Date: </label>
+                    <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} />
+                </div>
+                <div>
+                    <label>End Date: </label>
+                    <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} />
+                </div>
+            </div>
+
             <div style={{ display: 'flex', gap: '20px', margin: '20px 0', padding: '10px', border: '1px solid #ccc' }}>
-                <div><strong>Total Days:</strong> {summary.total_days}</div>
+                <div><strong>Total Days in Range:</strong> {summary.total_days}</div>
                 <div><strong>Days Present:</strong> {summary.present_days}</div>
                 <div><strong>Days Absent:</strong> {summary.absent_days}</div>
             </div>

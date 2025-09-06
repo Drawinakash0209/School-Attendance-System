@@ -11,19 +11,17 @@ use App\Http\Controllers\Controller;
 
 class ReportController extends Controller
 {
-    public function getStudentReport($studentId)
+   public function getStudentReport(Request $request, $studentId)
     {
-        
         $student = Student::with('schoolClass')->findOrFail($studentId);
-
-        $attendances = Attendance::where('student_id', $studentId)
-            ->orderBy('attendance_date', 'desc')
-            ->get();
-        
+        $query = Attendance::where('student_id', $studentId);
+        if ($request->has('start_date') && $request->has('end_date')) {
+            $query->whereBetween('attendance_date', [$request->start_date, $request->end_date]);
+        }
+        $attendances = $query->orderBy('attendance_date', 'desc')->get();   
         $totalDays = $attendances->count();
         $presentDays = $attendances->where('status', 'Present')->count();
         $absentDays = $totalDays - $presentDays;
-
         return response()->json([
             'student' => $student,
             'summary' => [
