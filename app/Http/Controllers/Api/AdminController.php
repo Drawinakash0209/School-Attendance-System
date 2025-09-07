@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Student;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -42,5 +43,53 @@ class AdminController extends Controller
         ]);
 
         return response()->json(['message' => 'Student registered successfully.'], 201);
+    }
+
+
+        public function listTeachers()
+    {
+        return User::where('role', 'teacher')->orderBy('name')->get();
+    }
+
+      public function listStudents()
+    {
+        return Student::with('schoolClass')->orderBy('name')->get();
+    }
+
+
+        public function updateTeacher(Request $request, User $teacher)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => ['required', 'email', Rule::unique('users')->ignore($teacher->id)],
+        ]);
+        $teacher->update($request->only(['name', 'email']));
+        return response()->json(['message' => 'Teacher updated successfully.', 'teacher' => $teacher]);
+    }
+
+
+        public function updateStudent(Request $request, Student $student)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'school_class_id' => 'required|exists:school_classes,id',
+        ]);
+
+        $student->update($request->only(['name', 'school_class_id']));
+        return response()->json(['message' => 'Student updated successfully.', 'student' => $student->load('schoolClass')]);
+    }
+
+
+        public function deleteTeacher(User $teacher)
+    {
+        $teacher->delete();
+        return response()->json(['message' => 'Teacher deleted successfully.']);
+    }
+
+
+       public function deleteStudent(Student $student)
+    {
+        $student->delete();
+        return response()->json(['message' => 'Student deleted successfully.']);
     }
 }
