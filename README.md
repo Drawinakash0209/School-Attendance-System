@@ -115,3 +115,18 @@ Use the following pre-seeded accounts to test the application:
 | :-------- | :------------------- | :--------- |
 | **Admin** | `admin@school.com`   | `password` |
 | **Teacher** | `JohnDoe.teacher@school.com` | `password` |
+
+## 🚀 System Screenshots
+<img width="1755" height="848" alt="image" src="https://github.com/user-attachments/assets/9c23adf2-2ca2-41ed-83ee-d0b3f8aa8f29" />
+<img width="1755" height="848" alt="image" src="https://github.com/user-attachments/assets/ad08da3c-6329-4d91-be37-8920017c84f8" />
+<img width="1755" height="848" alt="image" src="https://github.com/user-attachments/assets/717a2959-93ab-4072-8c36-17e5894d8425" />
+<img width="1755" height="1050" alt="image" src="https://github.com/user-attachments/assets/e168fafe-2821-4c76-99ff-7e8b196c94b8" />
+<img width="1755" height="848" alt="image" src="https://github.com/user-attachments/assets/782e6565-b6b1-421c-90f6-1b50b8244d10" />
+
+
+
+
+
+
+
+
