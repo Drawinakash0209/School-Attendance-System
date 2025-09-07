@@ -1,10 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import Modal from '../components/Modal';
-import { useAuth } from '../context/AuthContext';
-import apiClient from '../services/api';
+import Modal from '../components/Modal.jsx';
+import { useAuth } from '../context/AuthContext.jsx';
+import apiClient from '../services/api.js';
 
 // --- ICONS ---
-// Added new icons for actions and improved styling consistency.
 const UserGroupIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.653-.122-1.28-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.653.122-1.28.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>;
 const UserIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>;
 const CheckCircleIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>;
@@ -12,7 +11,7 @@ const PencilIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-5 
 const TrashIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>;
 const MagnifyingGlassIcon = () => <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>;
 
-// --- REUSABLE COMPONENTS (Refreshed Styling) ---
+// --- REUSABLE COMPONENTS ---
 const StatCard = ({ title, value, icon }) => (
     <div className="bg-white p-5 rounded-xl border border-slate-200/80 shadow-sm flex items-center justify-between">
         <div>
@@ -32,8 +31,12 @@ const FormSection = ({ title, children }) => (
     </div>
 );
 
-const FormInput = ({ ...props }) => (
-    <input {...props} className="w-full p-3 border border-slate-300 rounded-lg bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" />
+// --- UPDATED FormInput component to merge classNames ---
+const FormInput = ({ className = '', ...props }) => (
+    <input 
+        {...props} 
+        className={`w-full p-3 border border-slate-300 rounded-lg bg-slate-50/50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition ${className}`}
+    />
 );
 
 const FormSelect = ({ children, ...props }) => (
@@ -43,7 +46,7 @@ const FormSelect = ({ children, ...props }) => (
 );
 
 export default function AdminDashboard() {
-    // --- NO CHANGES TO STATE OR LOGIC ---
+    // --- State and logic remains the same ---
     const { user, logout } = useAuth();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editingUser, setEditingUser] = useState(null);
@@ -86,7 +89,6 @@ export default function AdminDashboard() {
     const handleUpdate = (e) => { e.preventDefault(); const endpoint = isTeacherEdit ? `/admin/teachers/${editingUser.id}` : `/admin/students/${editingUser.id}`; const payload = isTeacherEdit ? { name: editingUser.name, email: editingUser.email } : { name: editingUser.name, school_class_id: editingUser.school_class_id }; apiClient.put(endpoint, payload).then(res => { setMessage(res.data.message); if (isTeacherEdit) { setTeachers(teachers.map(t => t.id === editingUser.id ? res.data.teacher : t)); } else { setStudents(students.map(s => s.id === editingUser.id ? res.data.student : s)); } closeEditModal(); }).catch(() => setError('Failed to update user.')); };
     const handleDelete = (id, isTeacher) => { if (window.confirm('Are you sure you want to delete this user? This action cannot be undone.')) { const endpoint = isTeacher ? `/admin/teachers/${id}` : `/admin/students/${id}`; apiClient.delete(endpoint).then(res => { setMessage(res.data.message); if (isTeacher) { setTeachers(teachers.filter(t => t.id !== id)); } else { setStudents(students.filter(s => s.id !== id)); } }).catch(() => setError('Failed to delete user.')); } };
     
-    // --- UI & STYLING CHANGES BELOW ---
     return (
         <div className="bg-slate-50 min-h-screen font-sans">
             <header className="bg-white/80 backdrop-blur-md p-4 border-b border-slate-200/80 flex justify-between items-center sticky top-0 z-20">
@@ -112,6 +114,7 @@ export default function AdminDashboard() {
                             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <MagnifyingGlassIcon />
                             </div>
+                            {/* UPDATED placeholder text */}
                             <FormInput type="text" placeholder="Search teachers by name or email..." value={teacherSearch} onChange={e => setTeacherSearch(e.target.value)} className="pl-10" />
                         </div>
                         <div className="max-h-72 overflow-y-auto">
@@ -137,6 +140,7 @@ export default function AdminDashboard() {
                              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <MagnifyingGlassIcon />
                             </div>
+                            {/* UPDATED placeholder text */}
                             <FormInput type="text" placeholder="Search students by name..." value={studentSearch} onChange={e => setStudentSearch(e.target.value)} className="pl-10" />
                         </div>
                         <div className="max-h-72 overflow-y-auto">
@@ -215,3 +219,4 @@ export default function AdminDashboard() {
         </div>
     );
 }
+
