@@ -35,20 +35,15 @@ class TeacherController extends Controller
      */
         public function getStudentsWithAttendance(Request $request, $classId)
     {
-        // We will default to today, but this could be extended for historical edits
         $date = $request->input('date', Carbon::today()->toDateString());
 
         $students = Student::where('school_class_id', $classId)->orderBy('name')->get();
-
-        // Eager load attendance for all students in the class for the given date in one query
         $attendances = Attendance::whereIn('student_id', $students->pluck('id'))
             ->where('attendance_date', $date)
             ->get()
-            ->keyBy('student_id'); // Keying by student_id makes lookup very fast
+            ->keyBy('student_id');
 
-        // Map the attendance status to each student object
         $studentsWithAttendance = $students->map(function ($student) use ($attendances) {
-            // Add a 'status' attribute to the student object
             $student->status = $attendances->has($student->id) ? $attendances[$student->id]->status : null;
             return $student;
         });

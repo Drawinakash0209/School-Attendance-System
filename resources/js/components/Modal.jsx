@@ -3,15 +3,15 @@ export default function Modal({ isOpen, onClose, title, children }) {
     if (!isOpen) return null;
 
     return (
-        // Main overlay
+       
         <div 
             className="fixed inset-0 bg-black bg-opacity-50 z-40 flex justify-center items-center" 
-            onClick={onClose} // Close modal when clicking the overlay
+            onClick={onClose}
         >
             {/* Modal Content */}
             <div 
                 className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-lg relative"
-                onClick={e => e.stopPropagation()} // Prevent clicks inside the modal from closing it
+                onClick={e => e.stopPropagation()} 
             >
                 {/* Header */}
                 <div className="flex justify-between items-center border-b pb-3 mb-4">
@@ -23,7 +23,7 @@ export default function Modal({ isOpen, onClose, title, children }) {
                         &times;
                     </button>
                 </div>
-                {/* Body (where the form will go) */}
+                {/* Body where the form will go */}
                 <div>
                     {children}
                 </div>

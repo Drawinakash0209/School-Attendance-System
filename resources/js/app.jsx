@@ -23,7 +23,6 @@ function App() {
 const AppRoutes = () => {
     const { user } = useAuth();
 
-    // This component will decide which dashboard to show or redirect to login
     const DashboardRedirect = () => {
         if (!user) {
             return <Navigate to="/login" />;
