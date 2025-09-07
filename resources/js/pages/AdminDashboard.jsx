@@ -31,7 +31,6 @@ const FormSection = ({ title, children }) => (
     </div>
 );
 
-// --- UPDATED FormInput component to merge classNames ---
 const FormInput = ({ className = '', ...props }) => (
     <input 
         {...props} 
@@ -46,7 +45,6 @@ const FormSelect = ({ children, ...props }) => (
 );
 
 export default function AdminDashboard() {
-    // --- State and logic remains the same ---
     const { user, logout } = useAuth();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [editingUser, setEditingUser] = useState(null);
@@ -114,7 +112,6 @@ export default function AdminDashboard() {
                             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <MagnifyingGlassIcon />
                             </div>
-                            {/* UPDATED placeholder text */}
                             <FormInput type="text" placeholder="Search teachers by name or email..." value={teacherSearch} onChange={e => setTeacherSearch(e.target.value)} className="pl-10" />
                         </div>
                         <div className="max-h-72 overflow-y-auto">
@@ -140,7 +137,6 @@ export default function AdminDashboard() {
                              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <MagnifyingGlassIcon />
                             </div>
-                            {/* UPDATED placeholder text */}
                             <FormInput type="text" placeholder="Search students by name..." value={studentSearch} onChange={e => setStudentSearch(e.target.value)} className="pl-10" />
                         </div>
                         <div className="max-h-72 overflow-y-auto">
@@ -164,10 +160,10 @@ export default function AdminDashboard() {
 
                 <section className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <FormSection title="Register New Teacher">
-                        <form onSubmit={handleRegisterTeacher} className="space-y-4">
+                        <form onSubmit={handleRegisterTeacher} className="space-y-4" autoComplete="off">
                             <FormInput type="text" placeholder="Full Name" value={teacherName} onChange={e => setTeacherName(e.target.value)} required />
                             <FormInput type="email" placeholder="Email Address" value={teacherEmail} onChange={e => setTeacherEmail(e.target.value)} required />
-                            <FormInput type="password" placeholder="Password" value={teacherPassword} onChange={e => setTeacherPassword(e.target.value)} required />
+                            <FormInput type="password" placeholder="Password" value={teacherPassword} onChange={e => setTeacherPassword(e.target.value)} required autoComplete="new-password" />
                             <button type="submit" className="w-full bg-indigo-500 text-white p-3 rounded-lg hover:bg-indigo-600 transition-colors shadow-sm font-semibold">Register Teacher</button>
                         </form>
                     </FormSection>
