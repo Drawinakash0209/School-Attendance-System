@@ -1,65 +1,117 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# School Attendance System
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <img src="https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React">
+  <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" alt="Tailwind CSS">
+  <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
 </p>
 
-## About Laravel
+## 📖 About The Project
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+> This is a full-stack web application built to fulfill a technical assignment, demonstrating a modern and professional development workflow. It provides a comprehensive platform for school administrators to manage users and for teachers to efficiently mark and track student attendance.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+The application features a clean, aesthetic user interface built with Tailwind CSS and includes role-based access control, detailed reporting, and several real-world bonus features that go beyond the initial requirements.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## ✨ Features
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### ✅ Core Features
+* **Secure User Authentication**: Robust login/logout system for **Admin** and **Teacher** roles.
+* **Role-Based Access Control**:
+    * Admins have full control over user management and reporting.
+    * Teachers can mark daily attendance and view student reports.
+* **Attendance Marking**: Teachers can mark each student in a selected class as 'Present' or 'Absent'. The system intelligently pre-fills already submitted attendance for the day, allowing for easy edits.
+* **Individual Student Reports**: View a complete attendance history and a summary for any student.
 
-## Laravel Sponsors
+### ✅ Bonus & Additional Features
+* **Full User Management (CRUD)**: Admins can **Create, Read, Update, and Delete** both student and teacher records through a user-friendly interface with modals and confirmation dialogs.
+* **Admin Dashboard Analytics**: The admin dashboard features data cards for instant insights, including total student/teacher counts and the overall attendance rate for the current day.
+* **Class-Wide Reports**: A dedicated page to view a monthly attendance summary for an entire class.
+* **Date Filtering**: The individual student report can be filtered by a specific date range using an intuitive date picker.
+* **Searchable User Lists**: Both student and teacher lists on the admin dashboard have real-time search functionality.
+* **Professional UI/UX**: The entire application has been redesigned with a modern, aesthetic, and responsive user interface.
+* **SPA Refresh Support**: A "catch-all" route ensures that browser refreshes on any page of the single-page application work correctly.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## 🛠️ Tech Stack
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+* **Backend**: PHP / Laravel
+* **Frontend**: JavaScript / React.js (with Vite)
+* **Styling**: Tailwind CSS
+* **Database**: MySQL
+* **API Authentication**: Laravel Sanctum
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🚀 Setup and Installation
 
-## Code of Conduct
+Follow these steps to get the project running locally.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1.  **Clone the repository:**
+    ```bash
+    git clone <your-repository-url>
+    cd school-attendance-system
+    ```
 
-## Security Vulnerabilities
+2.  **Install Backend Dependencies:**
+    ```bash
+    composer install
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3.  **Install Frontend Dependencies:**
+    ```bash
+    npm install
+    ```
 
-## License
+4.  **Environment Setup:**
+    * **Create a database**: First, create a new, empty database for the project (e.g., `school_attendance`).
+    * **Copy the environment file**:
+        ```bash
+        cp .env.example .env
+        ```
+    * **Generate an application key**:
+        ```bash
+        php artisan key:generate
+        ```
+    * **Configure your database**: In the **`.env`** file, update the `DB_DATABASE`, `DB_USERNAME`, and `DB_PASSWORD` variables to match your database credentials.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# School-Attendance-System
->>>>>>> a1dc12f5546bf2f231ff0ba7e11495e0e65738ac
+5.  **Run Database Migrations and Seeding:**
+    This command creates all tables and populates the database with test users and sample data.
+    ```bash
+    php artisan migrate:fresh --seed
+    ```
+
+---
+
+## 🏃 Running the Servers
+
+You'll need two separate terminals running in the project directory.
+
+* In **Terminal 1**, run the Laravel backend server:
+    ```bash
+    php artisan serve
+    ```
+
+* In **Terminal 2**, run the Vite frontend server:
+    ```bash
+    npm run dev
+    ```
+
+### Access the Application
+Open your browser and navigate to `http://127.0.0.1:8000`.
+
+---
+
+## 🧪 Test Login Credentials
+
+Use the following pre-seeded accounts to test the application:
+
+| Role      | Email                | Password   |
+| :-------- | :------------------- | :--------- |
+| **Admin** | `admin@school.com`   | `password` |
+| **Teacher** | `JohnDoe.teacher@school.com` | `password` |
